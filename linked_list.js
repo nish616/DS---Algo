@@ -16,43 +16,75 @@ class linkedList {
 		var node = new ListNode(element);
 
 		var current;
-		if(this.head == null) {
+		if (this.head == null) {
 			this.head = node;
-		} else{
+		} else {
 			current = this.head;
-			while(current.next) {
+			while (current.next) {
 				current = current.next;
 			}
 			current.next = node;
 		}
-		this.size ++;
+		this.size++;
 	}
 
-	addAtStart = function(element) {
+	addAtStart = function (element) {
 		var node = new ListNode(element);
 
-		if(this.head == null) {
+		if (this.head == null) {
 			this.head = node;
-		} else{
+		} else {
 			node.next = this.head;
 			this.head = node;
 		}
-		this.size ++;
+		this.size++;
 	}
 
 	addAtPosition = function (element, position) {
+		if (position > this.size) {
+			console.log(`Position does not match size. Current size:${this.size}`);
+			return;
+		}
 
-	}
-
-	view = function() {
+		var node = new ListNode(element);
 		var current;
-		if(this.head == null) {
+		var prev;
+
+		if (this.head == null) {
 			console.log('List empty');
 			return;
-		} else{
+		} else {
+			current = this.head;
+			prev = this.head;
+			let i = 1;
+			while (current.next) {
+				if (position == i) {
+					if (position == 1) {
+						node.next = this.head;
+						this.head = node;
+					} else {
+						node.next = current;
+						prev.next = node;
+					}
+					break;
+				}
+				prev = current;
+				current = current.next;
+				i++;
+			}
+		}
+		this.size++;
+	}
+
+	view = function () {
+		var current;
+		if (this.head == null) {
+			console.log('List empty');
+			return;
+		} else {
 			current = this.head;
 			let list = "";
-			while(current.next) {
+			while (current.next) {
 				list += current.val + ">>";
 				current = current.next;
 			}
@@ -68,19 +100,30 @@ class linkedList {
 
 	removeFromEnd = function () {
 		var current;
-		if(this.head == null) {
+		if (this.head == null) {
 			console.log('List empty');
 			return;
-		} else{
+		} else {
 			current = this.head;
-			while(current.next && current.next.next) {
+			while (current.next && current.next.next) {
 				current = current.next;
 			}
 			current.next = null;
 		}
 	}
 
-	removeFromPosition = function(position) {
+	removeFromPosition = function (position) {
 
 	}
 }
+
+var test = new linkedList();
+
+test.addAtStart(1)
+test.addAtStart(2);
+test.addAtStart(3);
+
+test.addAtPosition(5, 1);
+test.addAtPosition(4, 2);
+
+test.view();
