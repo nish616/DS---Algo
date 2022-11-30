@@ -116,14 +116,3 @@ class linkedList {
 
 	}
 }
-
-var test = new linkedList();
-
-test.addAtStart(1)
-test.addAtStart(2);
-test.addAtStart(3);
-
-test.addAtPosition(5, 1);
-test.addAtPosition(4, 2);
-
-test.view();
