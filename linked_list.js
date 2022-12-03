@@ -11,6 +11,18 @@ class linkedList {
 		this.size = 0;
 	}
 
+	addAtStart = function (element) {
+		var node = new ListNode(element);
+
+		if (this.head == null) {
+			this.head = node;
+		} else {
+			node.next = this.head;
+			this.head = node;
+		}
+		this.size++;
+	}
+
 	addAtEnd = function (element) {
 
 		var node = new ListNode(element);
@@ -28,20 +40,8 @@ class linkedList {
 		this.size++;
 	}
 
-	addAtStart = function (element) {
-		var node = new ListNode(element);
-
-		if (this.head == null) {
-			this.head = node;
-		} else {
-			node.next = this.head;
-			this.head = node;
-		}
-		this.size++;
-	}
-
 	addAtPosition = function (element, position) {
-		if (position > this.size) {
+		if (position > this.size + 1) {
 			console.log(`Position does not match size. Current size:${this.size}`);
 			return;
 		}
@@ -85,12 +85,12 @@ class linkedList {
 			current = this.head;
 			let list = "";
 			while (current.next) {
-				list += current.val + ">>";
+				list += current.val + "-->";
 				current = current.next;
 			}
 			list += current.val;
 
-			console.log(list)
+			console.log(list);
 		}
 	}
 
