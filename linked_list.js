@@ -21,6 +21,7 @@ class linkedList {
 			this.head = node;
 		}
 		this.size++;
+		return;
 	}
 
 	addAtEnd = function (element) {
@@ -38,6 +39,7 @@ class linkedList {
 			current.next = node;
 		}
 		this.size++;
+		return;
 	}
 
 	addAtPosition = function (element, position) {
@@ -52,7 +54,6 @@ class linkedList {
 
 		if (this.head == null) {
 			console.log('List empty');
-			return;
 		} else {
 			current = this.head;
 			prev = this.head;
@@ -74,13 +75,13 @@ class linkedList {
 			}
 		}
 		this.size++;
+		return;
 	}
 
 	view = function () {
 		var current;
 		if (this.head == null) {
 			console.log('List empty');
-			return;
 		} else {
 			current = this.head;
 			let list = "";
@@ -92,17 +93,26 @@ class linkedList {
 
 			console.log(list);
 		}
+		return;
 	}
 
 	removefromStart = function () {
+		if (!this.size) {
+			console.log('List empty');
+			return;
+		}
 
+		var current = this.head;
+		this.head = current.next;
+
+		this.size --;
+		return;
 	}
 
 	removeFromEnd = function () {
 		var current;
 		if (this.head == null) {
 			console.log('List empty');
-			return;
 		} else {
 			current = this.head;
 			while (current.next && current.next.next) {
@@ -110,6 +120,7 @@ class linkedList {
 			}
 			current.next = null;
 		}
+		return;
 	}
 
 	removeFromPosition = function (position) {
