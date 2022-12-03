@@ -11,6 +11,19 @@ class linkedList {
 		this.size = 0;
 	}
 
+	addAtStart = function (element) {
+		var node = new ListNode(element);
+
+		if (this.head == null) {
+			this.head = node;
+		} else {
+			node.next = this.head;
+			this.head = node;
+		}
+		this.size++;
+		return;
+	}
+
 	addAtEnd = function (element) {
 
 		var node = new ListNode(element);
@@ -26,18 +39,7 @@ class linkedList {
 			current.next = node;
 		}
 		this.size++;
-	}
-
-	addAtStart = function (element) {
-		var node = new ListNode(element);
-
-		if (this.head == null) {
-			this.head = node;
-		} else {
-			node.next = this.head;
-			this.head = node;
-		}
-		this.size++;
+		return;
 	}
 
 	addAtPosition = function (element, position) {
@@ -52,67 +54,125 @@ class linkedList {
 
 		if (this.head == null) {
 			console.log('List empty');
-			return;
 		} else {
 			current = this.head;
 			prev = this.head;
 			let i = 1;
-			while (current.next) {
-				if (position == i) {
-					if (position == 1) {
-						node.next = this.head;
-						this.head = node;
-					} else {
+			if (position == 1) { // At start
+				node.next = this.head;
+				this.head = node;
+			} else if (position == this.size) { // At end
+				current = this.head;
+				while (current.next) {
+					current = current.next;
+				}
+				current.next = node;
+			} else {
+				while (current.next) {
+					if (position == i) {
 						node.next = current;
 						prev.next = node;
+						break;
 					}
-					break;
+					prev = current;
+					current = current.next;
+					i++;
 				}
-				prev = current;
-				current = current.next;
-				i++;
 			}
 		}
 		this.size++;
+		return;
 	}
 
 	view = function () {
 		var current;
 		if (this.head == null) {
 			console.log('List empty');
-			return;
 		} else {
 			current = this.head;
 			let list = "";
 			while (current.next) {
-				list += current.val + ">>";
+				list += current.val + "-->";
 				current = current.next;
 			}
 			list += current.val;
 
-			console.log(list)
+			console.log(list);
 		}
+		return;
+	}
+
+	getSize = function () {
+		console.log(this.size);
+		return this.size;
 	}
 
 	removefromStart = function () {
+		if (!this.size) {
+			console.log('List empty');
+			return;
+		}
 
+		var current = this.head;
+		this.head = current.next;
+
+		this.size--;
+		return;
 	}
 
 	removeFromEnd = function () {
 		var current;
 		if (this.head == null) {
 			console.log('List empty');
-			return;
 		} else {
 			current = this.head;
 			while (current.next && current.next.next) {
 				current = current.next;
 			}
 			current.next = null;
+			this.size--;
 		}
+		return;
 	}
 
 	removeFromPosition = function (position) {
+		if (!this.size) {
+			console.log('List empty');
+			return;
+		}
 
+		if (position > this.size) {
+			console.log(`Position does not match size. Current size:${this.size}`);
+			return;
+		}
+
+		var current;
+		var prev;
+		let i = 1;
+		if (position == 1) {
+			this.head = current.next;
+			this.size--;
+		} else if (position == this.size) {
+			current = this.head;
+			while (current.next && current.next.next) {
+				current = current.next;
+			}
+			current.next = null;
+			this.size--;
+		} else {
+			current = this.head;
+			prev = current;
+			while (current.next) {
+				if (position == i) {
+					prev.next = current.next;
+					break;
+				}
+				i++;
+				prev = current;
+				current = current.next;
+			}
+			this.size--;
+		}
+		return;
 	}
 }
